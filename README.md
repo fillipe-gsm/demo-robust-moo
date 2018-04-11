@@ -1,6 +1,6 @@
 # demo-robust-moo
 
-This is a small toolbox that implements the Differential Evolution for Multiobjective Optimization (DEMO) but adapted to handle uncertainties in the variables. The details of the method are given in [1].
+This is a small **Octave** toolbox that implements the Differential Evolution for Multiobjective Optimization (DEMO) but adapted to handle uncertainties in the variables. The details of the method are given in [1].
 
 In the algorithms folder there are the demo_opt.m and demo_robust.m files, together with some auxiliary ones. The first file implements the original DEMO that can (or rather tries to) solve any multi-objective problem, while the second is the adapted version to handle the case when the variables have uncertainties. By typing help demo_opt or help demo_robust the user can see the syntax of the function, together with examples of how to use them.
 
@@ -44,6 +44,8 @@ plot(Popt.f(1,:), Popt.f(2,:), "o"); xlabel("f_1"); ylabel("f_2");
 
 which gives the following figure. Users that know the DLTZ function will notice that the points are almost in the quarter circle of the first hemisphere, which is a good visual indicator of convergence to the Pareto-optimal front. Of course, the skeptical ones can check this by computing the distances to the optimal solutions:
 
+![Non-dominated front from DEMO in DTLZ2](./img/demo_dtlz2.png)
+
 <pre>
 d = dtlz_distance ("dtlz2", Popt.x);
 min(d), mean(d), max(d),
@@ -85,7 +87,7 @@ f = @(x) myfunction(x, par1, par2, …);
 
 where par1, par2 etc. should be set here. Different function handles can be created every time one of the parameters needs to be changed. See the example in demo_robust since the deb_robust.m function has this form.
 
-# Important observation about Matlab
+# Regarding Matlab
 The code is meant to be run in Octave, version 4.0 or newer. However, the code was not optimized for Octave only, so most functions should run fine in recent versions of Matlab as well, with an obvious exception of the ols and glpk functions used in the linear regression of compute_sensitivity.m. The interested user who wishes to run Matlab instead should adapt this portion. Unfortunately, I did not have access to a Matlab copy, let alone the optimization toolbox, so I could not correct for possible errors. With that said, a few friends mentioned that the linear solver of Matlab is way slower than the equivalent glpk of Octave, so they still preferred the latter software. It should not be an issue for most people, considering Octave is free and can run most of the code written for Matlab.
 
 # Contact information
